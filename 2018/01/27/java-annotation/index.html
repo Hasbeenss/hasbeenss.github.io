@@ -94,13 +94,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hasbeenss&#39;s blogs">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="学习Spring时，到处都是使用注解，自然就想对注解一探究竟。我主要从以下三个方面来学习注解的知识，来达到对注解的掌握。  注解是什么？ 注解有什么用？ 如何自定义一个注解？ Java中的注解 获取注解中的信息  注解是什么首先，注解是什么？注解（Annotation），也叫元数据。一种代码级别的说明。它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。以@开头，形如@Ove">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中的注解(Annotation)">
+<meta property="og:url" content="http://yoursite.com/2018/01/27/java-annotation/index.html">
 <meta property="og:site_name" content="Hasbeenss&#39;s blogs">
+<meta property="og:description" content="学习Spring时，到处都是使用注解，自然就想对注解一探究竟。我主要从以下三个方面来学习注解的知识，来达到对注解的掌握。  注解是什么？ 注解有什么用？ 如何自定义一个注解？ Java中的注解 获取注解中的信息  注解是什么首先，注解是什么？注解（Annotation），也叫元数据。一种代码级别的说明。它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。以@开头，形如@Ove">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-11T03:38:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hasbeenss&#39;s blogs">
+<meta name="twitter:title" content="Java中的注解(Annotation)">
+<meta name="twitter:description" content="学习Spring时，到处都是使用注解，自然就想对注解一探究竟。我主要从以下三个方面来学习注解的知识，来达到对注解的掌握。  注解是什么？ 注解有什么用？ 如何自定义一个注解？ Java中的注解 获取注解中的信息  注解是什么首先，注解是什么？注解（Annotation），也叫元数据。一种代码级别的说明。它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。以@开头，形如@Ove">
 
 
 
@@ -129,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/27/java-annotation/"/>
 
 
 
 
 
-  <title>Hasbeenss's blogs</title>
+  <title>Java中的注解(Annotation) | Hasbeenss's blogs</title>
   
 
 
@@ -160,9 +164,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -235,9 +237,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -267,9 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/27/java-annotation/" itemprop="url">Java中的注解(Annotation)</a></h1>
+          <h1 class="post-title" itemprop="name headline">Java中的注解(Annotation)</h1>
         
 
         <div class="post-meta">
@@ -319,9 +319,7 @@
       
 
       
-        
-          
-            <p>学习Spring时，到处都是使用注解，自然就想对注解一探究竟。我主要从以下三个方面来学习注解的知识，来达到对注解的掌握。</p>
+        <p>学习Spring时，到处都是使用注解，自然就想对注解一探究竟。我主要从以下三个方面来学习注解的知识，来达到对注解的掌握。</p>
 <ul>
 <li>注解是什么？</li>
 <li>注解有什么用？</li>
@@ -413,8 +411,6 @@
 <p>然后在Annotations类中使用注解，并且在main方法中获取这些注解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">@Person(name=&quot;tom&quot;)</span><br><span class="line">public class Annotations &#123;</span><br><span class="line">	</span><br><span class="line">	@Book</span><br><span class="line">	private String book;</span><br><span class="line">	</span><br><span class="line">	public static void method(@Param(&quot;name&quot;) String bookName) &#123;</span><br><span class="line">		System.out.println(bookName);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		//检测类上是否有Person类型的注解</span><br><span class="line">		Boolean isAnnotation = Annotations.class.isAnnotationPresent(Person.class);</span><br><span class="line">		if (isAnnotation) &#123;</span><br><span class="line">			//获取注解</span><br><span class="line">			Person p = Annotations.class.getAnnotation(Person.class);</span><br><span class="line">			//调用注解的方法</span><br><span class="line">			System.out.println(p.name());</span><br><span class="line">			System.out.println(p.age());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		try &#123;</span><br><span class="line">			//得到成员变量</span><br><span class="line">			Field a = Annotations.class.getDeclaredField(&quot;book&quot;);</span><br><span class="line">			a.setAccessible(true);</span><br><span class="line">			</span><br><span class="line">			//获取成员变量上的注解</span><br><span class="line">			Book b = a.getAnnotation(Book.class);</span><br><span class="line">			System.out.println(b.author());</span><br><span class="line">			</span><br><span class="line">			//获取方法</span><br><span class="line">			Method m = Annotations.class.getDeclaredMethod(&quot;method&quot;, String.class);</span><br><span class="line">			</span><br><span class="line">			if (m != null) &#123;</span><br><span class="line">				//获取注解</span><br><span class="line">				Annotation[][] ans = m.getParameterAnnotations();</span><br><span class="line">				for (Annotation[] annotations : ans) &#123;</span><br><span class="line">					for (Annotation annotation : annotations) &#123;</span><br><span class="line">						System.out.println(annotation.annotationType().getSimpleName());</span><br><span class="line">						//获取某个参数注解</span><br><span class="line">						if (Param.class.equals(annotation.annotationType())) &#123;</span><br><span class="line">							Param p = (Param)annotation;</span><br><span class="line">							System.out.println(p.value());</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125; catch (NoSuchFieldException | SecurityException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; catch (NoSuchMethodException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>参考文章：<br><a href=""></a><br><a href="https://docs.oracle.com/javase/tutorial/java/annotations/index.html" target="_blank" rel="noopener">The Java™ Tutorials</a><br><a href="http://blog.csdn.net/briblue/article/details/73824058" target="_blank" rel="noopener">秒懂，Java 注解 （Annotation）你可以这样学</a><br><a href="http://ifeve.com/java-8-features-tutorial/" target="_blank" rel="noopener">Java 8 特性 – 终极手册</a></p>
 
-          
-        
       
     </div>
     
@@ -431,169 +427,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/22/java-weakreference/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hasbeenss">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hasbeenss's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/22/java-weakreference/" itemprop="url">Java中的垃圾回收</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-22T13:20:17+08:00">
-                2018-01-22
-              </time>
+              <a href="/2018/01/22/java-weakreference/" rel="next" title="Java中的垃圾回收">
+                <i class="fa fa-chevron-left"></i> Java中的垃圾回收
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <blockquote>
-<p>之前一直做的是iOS，在iOS中，由于Objective-C是基于C和C++的，内存管理是很重要的一部分，它是基于引用计数技术的，在MRC阶段，内存管理很复杂，由程序员手动去处理和内存有关的问题，后来引入了ARC(自动引用计数)技术后，内存管理基本交给编译器去处理了。不管是MRC还是ARC，循环引用一直是关注的重点，为了解决这个问题引入了weak关键字来弱化一个引用，来打破其中的强应用，其中细节有很多东西，就不深入描述。<br>由此，我在学习Java过程中，不免将其与Objective-C进行对比学习，以寻求更多知识。</p>
-</blockquote>
-<p>在Java中，内存管理基本交给垃圾回收器，程序员基本很少关注内存相关的问题。那么垃圾回收器是怎么工作的呢？Java中存在循环引用吗？如果存在的的话，又是怎么解决的呢？</p>
-<p>关于垃圾回收器工作过程，可以分为三步</p>
-<ul>
-<li>确定需要回收的对象</li>
-<li>什么时候回收</li>
-<li>怎么回收</li>
-</ul>
-<h4 id="确定需要回收的对象"><a href="#确定需要回收的对象" class="headerlink" title="确定需要回收的对象"></a>确定需要回收的对象</h4><h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><p>什么是引用？Java中是这样说的：如果reference类型的数据中存储的数值代表的是另一块内存的起始地址，就称这块内存代表着一个引用。我一直用C语言中的指针来理解的，引用就是存储一块内存地址值的内存空间，即是指针。</p>
-<p>Java对引用进行了扩充，目的是为了配合垃圾回收器工作，更为有效的管理内存。引用分为强引用、软引用、弱引用、虚引用，其强度依次降低,下面介绍的对象能不能回收，前提是该引用是可达的，关于引用是否可达，后面介绍。</p>
-<ul>
-<li>强引用(Strong Reference):平时接触到的引用基本都是强引用，这种类型的引用，垃圾回收器不会回收其指向的对象。</li>
-<li>软引用(Soft Reference):Java提供了SoftReference来实现。它标记的对象，在垃圾回收器回收对象时并不会立即回收，而且当有内存溢出异常时才会回收。</li>
-<li>弱引用(Weak Reference):Java提供了WeakReference来实现。它标记的对象，在垃圾回收器工作时，就会回收，而不管是否存在内存溢出的异常。</li>
-<li>虚引用(Phantom Reference):Java提供了PhantomReference来实现。通过虚引用，并不能获取所指向的对象，并且也不会对对象的生存产生任何影响，它仅仅是为了在对象销毁时能够接受到通知。</li>
-</ul>
-<p>更多详细的介绍可以查看<a href="https://droidyue.com/blog/2014/10/12/understanding-weakreference-in-java/index.html" target="_blank" rel="noopener">这篇文章</a></p>
-<h5 id="引用计数算法"><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h5><p>引用计数的原理：每个对象都有一个引用计数器，当有一个地方引用它是，计数器加1；当引用失效时，计数器就减1，当计数器为0是，对象就不可能被使用。</p>
-<p>一些语言是用引用计数技术来管理内存，之前学习的Objective-C使用了这样的技术。但是在JVM中并没有使用，虽然这个算法很简单，但是容易出现循环引用问题，如栈上的引用p引用了对象A，对象A中存在一个引用pa，引用了对象B，而B中也有一个引用pb，它指向了A。此时对象A的引用计数为2，B的引用计数为1.当栈上的引用p出栈后，对象A的引用计数减1，但此时对象A和B的引用计数都为1，因此A和B的内存均不会释放。</p>
-<h5 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h5><p>可达性分析的原理：通过一个GC Roots对象为起点开始向下搜索，搜索所走的路径称为引用链(Reference Chain)。当一个对象到达GC Roots对象没有任何的引用链相连(用图论来说，就是从GC Roots到这个对象不可达)，就认为这个对象可被回收。</p>
-<p>在Java语言中，可作为GC Roots的对象有如下的几种：</p>
-<ul>
-<li>栈(虚拟机栈)中引用的对象</li>
-<li>方法区中类的静态属性引用的对象</li>
-<li>方法区中常量引用的对象</li>
-<li>本地方法栈中JNI(即一般说的Native方法)引用的对象(简单理解与第一种一样，都是栈中引用的对象)。</li>
-</ul>
-<h4 id="什么时候回收"><a href="#什么时候回收" class="headerlink" title="什么时候回收"></a>什么时候回收</h4><p>上面介绍了GC通过可达性分析，来区分一对象是否应该被回收。但是此时就会有很多的问题出现：例如GC是一直在后台运行吗？如果是的，这样就会导致一些问题，一方面是对资源的消耗太大，另一方面就得考虑和用户线程之间的共存关系，所以GC选择的是隔一段时间触发一次。那么GC是如何触发的呢？触发之后，GC又是通过什么方法来确定GC Roots对象的呢？当弄清了这两个问题，就只剩下清理工作了。</p>
-<p>首先需要了解的是，在垃圾回收器工作时，某些时段会停止用户的所有线程，防止某些引用在标记时候发生更改(stop the world)。GC开始工作后，第一件事就是确定GC Roots对象，如果GC通过扫描整个堆来确定CG Roots对象，对于大型的应用那让用户等待的的时间是无法想象的，最直观的感受是应用卡住了(卡死了)。</p>
-<p>在HotSpot(一种很常见的JVM)的实现中，是使用一组称为OopMap的数据结构来处理这个问题。在类加载完成的时候，HotSpot就把对象内什么偏移量上是什么类型的数据计算出来，在<a href="https://www.ibm.com/developerworks/cn/java/j-lo-just-in-time/" target="_blank" rel="noopener">JIT</a>编译过程中，也会在特定的位置记录下栈和寄存器中哪些位置是引用。</p>
-<p>记录了这些信息后就会将其插入指令中，这样当指令执行到这地方时，就可以轻松的获得GC Roots位置了。当然，HotSpot并不是在每个引用的地方都插入这样OopMap数据，那样会对内存产生很大消耗，它是选定一些特定的地方插入(例如方法调用、循环跳转、异常跳转等)，这个特定的地方就叫做安全点(Safepoint)，并在安全点插入一条终止用户线程的指令，这样当指令执行到终止线程指令时，就可以唤起GC开始垃圾回收了。</p>
-<h4 id="怎么回收"><a href="#怎么回收" class="headerlink" title="怎么回收"></a>怎么回收</h4><p>不同的垃圾回收器，采用不同的回收算法，但是基本都是由以下几种的组合使用。</p>
-<h5 id="标记-清除-Mark-Sweep-算法"><a href="#标记-清除-Mark-Sweep-算法" class="headerlink" title="标记-清除(Mark-Sweep)算法"></a>标记-清除(Mark-Sweep)算法</h5><p>首先标记出需要回收的对象，当标记完成后，统一回收所有被标记的对象。他有些不足，第一，标记和清除的效率不高；第二，清除之后会导致内存不连续，这样会对空间造成浪费，如果没有足够的空间容纳一个较大的对象，会触发垃圾回收。</p>
-<h5 id="复制-Copy-算法"><a href="#复制-Copy-算法" class="headerlink" title="复制(Copy)算法"></a>复制(Copy)算法</h5><p>由标记-清除导致内存不连续，就出现了复制的解决方案。它先将内存分为两块，始终保持就一块内存处于活动状态，当触发垃圾回收后导致内存不连续后，会将内存中对象全部复制到另一块内存中，此时内存中对象连续放置，解决了内存碎片问题。但是这种方法的代价始终只有一半的内存可以使用。</p>
-<h5 id="标记-整理-Mark-Compact-算法"><a href="#标记-整理-Mark-Compact-算法" class="headerlink" title="标记-整理(Mark-Compact)算法"></a>标记-整理(Mark-Compact)算法</h5><p>统一标记对象，标记完成后，并不是清理需要回收的对象，而是将存活的对象统一整理，让其连续存放在内存中。</p>
-<h5 id="分代收集-Generational-Collection-算法"><a href="#分代收集-Generational-Collection-算法" class="headerlink" title="分代收集(Generational Collection)算法"></a>分代收集(Generational Collection)算法</h5><p>根据对象存活周期的不同，将内存分为几块。一般将其分为新生代和老年代。在新生代，有大量对象死去，只有少量存活，这时采用复制算法；老生代的对象存活时间长，可以采用标记-清理或者标记-整理进行回收。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -603,189 +458,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/17/BuildHexoBlog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hasbeenss">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hasbeenss's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/17/BuildHexoBlog/" itemprop="url">通过GitHub Pages搭建基于Hexo的博客</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-17T16:03:49+08:00">
-                2018-01-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>花了一下午的时间，在GitHub Pages上搭建了自己的静态博客，将过程记录下来。</p>
-<h3 id="在GitHub上新建博客项目"><a href="#在GitHub上新建博客项目" class="headerlink" title="在GitHub上新建博客项目"></a>在GitHub上新建博客项目</h3><p>首先需要拥有GitHub账号，如果没有，<a href="https://github.com/join?source=header-home" target="_blank" rel="noopener">点击此处</a>注册一个就可以。注册完账号，就可以新建一个博客项目。GitHub提供了两种主页：</p>
-<ul>
-<li>个人或组织主页</li>
-<li>项目主页</li>
-</ul>
-<p>更多详细介绍，请移步<a href="https://help.github.com/articles/user-organization-and-project-pages/" target="_blank" rel="noopener">User, Organization, and Project Pages</a>。<br>我选择的是建立个人主页。个人主页建立<a href="https://pages.github.com" target="_blank" rel="noopener">官方文档</a>介绍的很清楚，按照它的步骤可以快速的完成。</p>
-<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>安装Hexo之前，需要安装<a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a>和<a href="https://git-scm.com" target="_blank" rel="noopener">Git</a>。Node.js直接从官网下载安装包可以快速的安装。我的是MacBook Pro，自带了Git，所以无需安装，关于Git的安装和使用可阅读<a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">这本书</a>。</p>
-<p>如果安装完Node.js以后，执行npm命令提示未找到该命令，可以用以下语句安装npm包管理工具</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://www.npmjs.com/install.sh | sh</span><br></pre></td></tr></table></figure>
-<p>当上面两个工具准备好了以后，只需要一个简单的命令就可以安装Hexo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
-<p>若提示以下错误</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">npm WARN checkPermissions Missing write access to /usr/local/lib/node_modules</span><br><span class="line">npm ERR! path /usr/local/lib/node_modules</span><br><span class="line">npm ERR! code EACCES</span><br><span class="line">npm ERR! errno -13</span><br><span class="line">npm ERR! syscall access</span><br><span class="line">npm ERR! Error: EACCES: permission denied, access &apos;/usr/local/lib/node_modules&apos;</span><br><span class="line">npm ERR!  &#123; Error: EACCES: permission denied, access &apos;/usr/local/lib/node_modules&apos;</span><br><span class="line">npm ERR!   stack: &apos;Error: EACCES: permission denied, access \&apos;/usr/local/lib/node_modules\&apos;&apos;,</span><br><span class="line">npm ERR!   errno: -13,</span><br><span class="line">npm ERR!   code: &apos;EACCES&apos;,</span><br><span class="line">npm ERR!   syscall: &apos;access&apos;,</span><br><span class="line">npm ERR!   path: &apos;/usr/local/lib/node_modules&apos; &#125;</span><br><span class="line">npm ERR! </span><br><span class="line">npm ERR! Please try running this command again as root/Administrator.</span><br><span class="line"></span><br><span class="line">npm ERR! A complete log of this run can be found in:</span><br><span class="line">npm ERR!     /Users/hasbeenss/.npm/_logs/2018-01-17T05_59_17_014Z-debug.log</span><br></pre></td></tr></table></figure>
-<p>只需给命令增加权限即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
-<p>安装完成，可以查看相关信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ hexo -v</span><br><span class="line">hexo: 3.4.4</span><br><span class="line">hexo-cli: 1.0.4</span><br><span class="line">os: Darwin 16.7.0 darwin x64</span><br><span class="line">http_parser: 2.7.0</span><br><span class="line">node: 8.9.4</span><br><span class="line">v8: 6.1.534.50</span><br><span class="line">uv: 1.15.0</span><br><span class="line">zlib: 1.2.11</span><br><span class="line">ares: 1.10.1-DEV</span><br><span class="line">modules: 57</span><br><span class="line">nghttp2: 1.25.0</span><br><span class="line">openssl: 1.0.2n</span><br><span class="line">icu: 59.1</span><br><span class="line">unicode: 9.0</span><br><span class="line">cldr: 31.0.1</span><br><span class="line">tz: 2017b</span><br></pre></td></tr></table></figure>
-<h3 id="使用Hexo"><a href="#使用Hexo" class="headerlink" title="使用Hexo"></a>使用Hexo</h3><p>关于Hexo的各种使用，可以查看<a href="https://hexo.io/docs/" target="_blank" rel="noopener">官方文档</a>，这里只介绍以下几点简单的使用。</p>
-<h5 id="项目的初始化"><a href="#项目的初始化" class="headerlink" title="项目的初始化"></a>项目的初始化</h5><p>初始化只用一个简单的命令即可,<code>&lt;folder&gt;</code>为文件路径，若此时已经处于项目的目录，则可以省略这个参数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ cd &lt;folder&gt;</span><br></pre></td></tr></table></figure>
-<p>如果没有加<code>&lt;folder&gt;</code>参数，并且此时文件夹里面有别的文件，会出现下列错误</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br><span class="line">FATAL ~/Desktop/blog/hasbeenss.github.io not empty, please run `hexo init` on an empty folder and then copy your files into it</span><br><span class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span><br></pre></td></tr></table></figure>
-<p>这时候换个空文件夹或者加上<code>&lt;folder&gt;</code>参数就可以了</p>
-<h5 id="本地调试"><a href="#本地调试" class="headerlink" title="本地调试"></a>本地调试</h5><p>初始化以后，就可以在本地打开服务器，查看默认的内容了。不过首先需要安装服务器,用以下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i hexo-server</span><br></pre></td></tr></table></figure>
-<p>安装完成后，执行下列命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>然后在浏览器中输入<code>http://localhost:4000/</code>就可以查看Hexo的默认样式了。</p>
-<p>在终端关闭服务器只需要按<code>Ctrl+C</code>快捷键即可。</p>
-<h5 id="部署到GitHub上"><a href="#部署到GitHub上" class="headerlink" title="部署到GitHub上"></a>部署到GitHub上</h5><p>Hexo提供<code>_config.yml</code>文件用于配置,各个配置的用途可以查看<a href="https://hexo.io/docs/configuration.html" target="_blank" rel="noopener">这里</a>。部署的相关配置也在这里。打开<code>_config.yml</code>,找到<code>deploy:</code><br>配置如下信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/Hasbeenss/hasbeenss.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p><code>type</code>通过什么方式部署,<code>repo</code>远程仓库地址,<code>branch</code>提交到远程仓库的分支。</p>
-<p>完成配置以后,执行以下三条命令部署到GitHub上。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>此时就可以通过<code>username.github.io</code>访问自己的博客了。个人建议先在本地查看效果确认无误后再部署到GitHub上。</p>
-<h5 id="更改主题"><a href="#更改主题" class="headerlink" title="更改主题"></a>更改主题</h5><p>在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">这里</a>找到自己喜欢的主题，然后进入GitHub对应的页面，按照它的README即可以完成安装。我是通过<code>git clone</code>将主题克隆到项目的themes目录下。我选择的是<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">Next</a>主题，因为极简，符合我的要求。他的使用在GitHub也做了很详细的说明。</p>
-<p>下载完成之后需要更改配置，打开项目根目录下的<code>_config.yml</code>,找到<code>theme:</code>改成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure>
-<p>完成之后，执行部署的三个命令，即可查看效果了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo generate</span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>当然Next主题内部也提供了多种样式，只要进入到<code>themes/next</code>中，更改<code>_config.yml</code>文件的配置信息就可以了。我选择的是<code>scheme: Mist</code>的样式。</p>
-<p>项目根目录的<code>_config.yml</code>文件可以配置博客的标题(title:)，作者(author:)，语言(language:)之类的。</p>
-<p><code>themes/next</code>中的<code>_config.yml</code>文件可以控制导航栏的栏目，在<code>menu:</code>下，如果不想其显示，注释掉即可。<code>menu_icons:</code>是配置旁边的图标。注释说的很清楚是一个特殊的FontAwesome图标名字，可以到<a href="http://fontawesome.io/icons/" target="_blank" rel="noopener">这里</a>选择自己需要的配置即可。</p>
-<p>更多的样式上的配置就不介绍了 根据注释和自己的需求可以随时更改。</p>
-<h5 id="新建一篇博客"><a href="#新建一篇博客" class="headerlink" title="新建一篇博客"></a>新建一篇博客</h5><p>执行以下命令即可创建一个名为<code>NewFile.md</code>的文件，位于<code>source/_posts</code>文件夹中。<code>.md</code>使用Markdown语法编辑。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;NewFile&quot;</span><br></pre></td></tr></table></figure>
-<p>推荐使用<a href="http://macdown.uranusjr.com" target="_blank" rel="noopener">MacDown</a>编辑器，如果部署Markdown语法，安装完<code>MacDown</code>软件后，打开默认会打开<code>help.md</code>文件，里面有详尽的语法介绍和效果显示。</p>
-<p>完成编辑后，还是执行三条部署语句，即可完成部署。</p>
-<h5 id="删除一篇博客"><a href="#删除一篇博客" class="headerlink" title="删除一篇博客"></a>删除一篇博客</h5><p>只要删除文件夹<code>source/_posts</code>中对应的文件，然后重新执行部署命令即可。</p>
-<h5 id="自定义域名"><a href="#自定义域名" class="headerlink" title="自定义域名"></a>自定义域名</h5><p>自定义域名可以参考文末的几篇博客。</p>
-<h5 id="添加评论"><a href="#添加评论" class="headerlink" title="添加评论"></a>添加评论</h5><p>有很多评论选择，我最后选择了<a href="https://github.com/gitalk/gitalk/blob/master/readme-cn.md" target="_blank" rel="noopener">Gitalk</a>，我觉得他的UI看着舒服。<a href="https://imsun.net/posts/gitment-introduction/" target="_blank" rel="noopener">Gitment</a>和Gitalk都是基于 GitHub Issues 的评论系统。<br>在项目里添加Gitalk，按照这篇<a href="https://www.jianshu.com/p/9be29ed2f4b7" target="_blank" rel="noopener">文章</a>就能很好地完成集成。</p>
-<p>我集成的时候遇到几个问题在这里记录下</p>
-<ol>
-<li>创建<code>OAuth Application</code>时，<code>Homepage URL</code>和<code>Authorization callback URL</code>填成了仓库地址，应该填写博客地址，比如我的是<code>hasbeenss.github.io</code>。</li>
-<li>在<code>themes/next/layout/_third-party/comments</code>中的gitalk.swig中，内容如下：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if not (theme.duoshuo and theme.duoshuo.shortname) and not theme.duoshuo_shortname %&#125;</span><br><span class="line">  &#123;% if theme.gitalk.enable %&#125;</span><br><span class="line">    &#123;% if theme.gitalk.distractionFreeMode  %&#125;      </span><br><span class="line">      &lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/gitalk/dist/gitalk.css&quot;&gt;</span><br><span class="line">      &lt;script src=&quot;https://unpkg.com/gitalk/dist/gitalk.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">      &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">          const gitalk = new Gitalk(&#123;</span><br><span class="line">            clientID:  &apos;&#123;&#123;theme.gitalk.clientID&#125;&#125;&apos;, </span><br><span class="line">            clientSecret: &apos;&#123;&#123;theme.gitalk.clientSecret&#125;&#125;&apos;,</span><br><span class="line">            repo: &apos;&#123;&#123;theme.gitalk.repo&#125;&#125;&apos;, </span><br><span class="line">            owner: &apos;&#123;&#123;theme.gitalk.owner&#125;&#125;&apos;, </span><br><span class="line">            admin: &apos;&#123;&#123;theme.gitalk.admin&#125;&#125;&apos;, </span><br><span class="line">            distractionFreeMode: &apos;&#123;&#123;theme.gitalk.distractionFreeMode&#125;&#125;&apos;,</span><br><span class="line">          &#125;)</span><br><span class="line">          gitalk.render(&apos;gitalk-container&apos;)</span><br><span class="line">      &lt;/script&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
-<p>在Gitalk初始化时，并没有将id赋值，因为默认为<code>location.href</code>，当前页面唯一的id。如果要写上这个字段，自已在仓库中新建一个issue，然后将其绑定即可。</p>
-<p>推荐博客：<br><a href="http://www.cnfeat.com/blog/2014/05/11/how-to-build-a-blog/" target="_blank" rel="noopener">如何搭建一个独立博客——简明 GitHub Pages与 jekyll 教程</a><br><a href="http://www.pchou.info/ssgithubPage/2013-01-03-build-github-blog-page-01.html" target="_blank" rel="noopener">Github建站系列教程</a><br><a href="http://beiyuu.com/github-pages" target="_blank" rel="noopener">使用Github Pages建独立博客</a><br><a href="https://www.cnblogs.com/visugar/p/6821777.html" target="_blank" rel="noopener">hexo从零开始到搭建完整</a></p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -793,6 +470,12 @@
 
 
           
+  <div class="comments" id="comments">
+      
+      <div id="gitalk-container"></div>
+    
+  </div>
+
 
         </div>
         
@@ -813,8 +496,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -858,6 +550,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#注解是什么"><span class="nav-number">1.</span> <span class="nav-text">注解是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注解有什么用"><span class="nav-number">2.</span> <span class="nav-text">注解有什么用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义一个注解"><span class="nav-number">3.</span> <span class="nav-text">自定义一个注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java中注解"><span class="nav-number">4.</span> <span class="nav-text">Java中注解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Override"><span class="nav-number">4.1.</span> <span class="nav-text">@Override</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#元注解"><span class="nav-number">4.2.</span> <span class="nav-text">元注解</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Target"><span class="nav-number">4.2.1.</span> <span class="nav-text">@Target</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Retention"><span class="nav-number">4.2.2.</span> <span class="nav-text">@Retention</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Documented"><span class="nav-number">4.2.3.</span> <span class="nav-text">@Documented</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Inherited"><span class="nav-number">4.2.4.</span> <span class="nav-text">@Inherited</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Repeatable"><span class="nav-number">4.2.5.</span> <span class="nav-text">@Repeatable</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Deprecated"><span class="nav-number">4.3.</span> <span class="nav-text">@Deprecated</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SuppressWarnings"><span class="nav-number">4.4.</span> <span class="nav-text">@SuppressWarnings</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SafeVarargs"><span class="nav-number">4.5.</span> <span class="nav-text">@SafeVarargs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FunctionalInterface"><span class="nav-number">4.6.</span> <span class="nav-text">@FunctionalInterface</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取注解中的信息"><span class="nav-number">5.</span> <span class="nav-text">获取注解中的信息</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -971,10 +679,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 

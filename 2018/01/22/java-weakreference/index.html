@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="之前一直做的是iOS，在iOS中，由于Objective-C是基于C和C++的，内存管理是很重要的一部分，它是基于引用计数技术的，在MRC阶段，内存管理很复杂，由程序员手动去处理和内存有关的问题，后来引入了ARC(自动引用计数)技术后，内存管理基本交给编译器去处理了。不管是MRC还是ARC，循环引用一直是关注的重点，为了解决这个问题引入了weak关键字来弱化一个引用，来打破其中的强应用，其中细节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中的垃圾回收">
+<meta property="og:url" content="http://yoursite.com/2018/01/22/java-weakreference/index.html">
+<meta property="og:site_name" content="Hasbeenss&#39;s blogs">
+<meta property="og:description" content="之前一直做的是iOS，在iOS中，由于Objective-C是基于C和C++的，内存管理是很重要的一部分，它是基于引用计数技术的，在MRC阶段，内存管理很复杂，由程序员手动去处理和内存有关的问题，后来引入了ARC(自动引用计数)技术后，内存管理基本交给编译器去处理了。不管是MRC还是ARC，循环引用一直是关注的重点，为了解决这个问题引入了weak关键字来弱化一个引用，来打破其中的强应用，其中细节">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-11T03:37:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java中的垃圾回收">
+<meta name="twitter:description" content="之前一直做的是iOS，在iOS中，由于Objective-C是基于C和C++的，内存管理是很重要的一部分，它是基于引用计数技术的，在MRC阶段，内存管理很复杂，由程序员手动去处理和内存有关的问题，后来引入了ARC(自动引用计数)技术后，内存管理基本交给编译器去处理了。不管是MRC还是ARC，循环引用一直是关注的重点，为了解决这个问题引入了weak关键字来弱化一个引用，来打破其中的强应用，其中细节">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/22/java-weakreference/"/>
+
+
+
+
+
+  <title>Java中的垃圾回收 | Hasbeenss's blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hasbeenss's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/22/java-weakreference/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hasbeenss">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hasbeenss's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java中的垃圾回收</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-22T13:20:17+08:00">
+                2018-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>之前一直做的是iOS，在iOS中，由于Objective-C是基于C和C++的，内存管理是很重要的一部分，它是基于引用计数技术的，在MRC阶段，内存管理很复杂，由程序员手动去处理和内存有关的问题，后来引入了ARC(自动引用计数)技术后，内存管理基本交给编译器去处理了。不管是MRC还是ARC，循环引用一直是关注的重点，为了解决这个问题引入了weak关键字来弱化一个引用，来打破其中的强应用，其中细节有很多东西，就不深入描述。<br>由此，我在学习Java过程中，不免将其与Objective-C进行对比学习，以寻求更多知识。</p>
+</blockquote>
+<p>在Java中，内存管理基本交给垃圾回收器，程序员基本很少关注内存相关的问题。那么垃圾回收器是怎么工作的呢？Java中存在循环引用吗？如果存在的的话，又是怎么解决的呢？</p>
+<p>关于垃圾回收器工作过程，可以分为三步</p>
+<ul>
+<li>确定需要回收的对象</li>
+<li>什么时候回收</li>
+<li>怎么回收</li>
+</ul>
+<h4 id="确定需要回收的对象"><a href="#确定需要回收的对象" class="headerlink" title="确定需要回收的对象"></a>确定需要回收的对象</h4><h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><p>什么是引用？Java中是这样说的：如果reference类型的数据中存储的数值代表的是另一块内存的起始地址，就称这块内存代表着一个引用。我一直用C语言中的指针来理解的，引用就是存储一块内存地址值的内存空间，即是指针。</p>
+<p>Java对引用进行了扩充，目的是为了配合垃圾回收器工作，更为有效的管理内存。引用分为强引用、软引用、弱引用、虚引用，其强度依次降低,下面介绍的对象能不能回收，前提是该引用是可达的，关于引用是否可达，后面介绍。</p>
+<ul>
+<li>强引用(Strong Reference):平时接触到的引用基本都是强引用，这种类型的引用，垃圾回收器不会回收其指向的对象。</li>
+<li>软引用(Soft Reference):Java提供了SoftReference来实现。它标记的对象，在垃圾回收器回收对象时并不会立即回收，而且当有内存溢出异常时才会回收。</li>
+<li>弱引用(Weak Reference):Java提供了WeakReference来实现。它标记的对象，在垃圾回收器工作时，就会回收，而不管是否存在内存溢出的异常。</li>
+<li>虚引用(Phantom Reference):Java提供了PhantomReference来实现。通过虚引用，并不能获取所指向的对象，并且也不会对对象的生存产生任何影响，它仅仅是为了在对象销毁时能够接受到通知。</li>
+</ul>
+<p>更多详细的介绍可以查看<a href="https://droidyue.com/blog/2014/10/12/understanding-weakreference-in-java/index.html" target="_blank" rel="noopener">这篇文章</a></p>
+<h5 id="引用计数算法"><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h5><p>引用计数的原理：每个对象都有一个引用计数器，当有一个地方引用它是，计数器加1；当引用失效时，计数器就减1，当计数器为0是，对象就不可能被使用。</p>
+<p>一些语言是用引用计数技术来管理内存，之前学习的Objective-C使用了这样的技术。但是在JVM中并没有使用，虽然这个算法很简单，但是容易出现循环引用问题，如栈上的引用p引用了对象A，对象A中存在一个引用pa，引用了对象B，而B中也有一个引用pb，它指向了A。此时对象A的引用计数为2，B的引用计数为1.当栈上的引用p出栈后，对象A的引用计数减1，但此时对象A和B的引用计数都为1，因此A和B的内存均不会释放。</p>
+<h5 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h5><p>可达性分析的原理：通过一个GC Roots对象为起点开始向下搜索，搜索所走的路径称为引用链(Reference Chain)。当一个对象到达GC Roots对象没有任何的引用链相连(用图论来说，就是从GC Roots到这个对象不可达)，就认为这个对象可被回收。</p>
+<p>在Java语言中，可作为GC Roots的对象有如下的几种：</p>
+<ul>
+<li>栈(虚拟机栈)中引用的对象</li>
+<li>方法区中类的静态属性引用的对象</li>
+<li>方法区中常量引用的对象</li>
+<li>本地方法栈中JNI(即一般说的Native方法)引用的对象(简单理解与第一种一样，都是栈中引用的对象)。</li>
+</ul>
+<h4 id="什么时候回收"><a href="#什么时候回收" class="headerlink" title="什么时候回收"></a>什么时候回收</h4><p>上面介绍了GC通过可达性分析，来区分一对象是否应该被回收。但是此时就会有很多的问题出现：例如GC是一直在后台运行吗？如果是的，这样就会导致一些问题，一方面是对资源的消耗太大，另一方面就得考虑和用户线程之间的共存关系，所以GC选择的是隔一段时间触发一次。那么GC是如何触发的呢？触发之后，GC又是通过什么方法来确定GC Roots对象的呢？当弄清了这两个问题，就只剩下清理工作了。</p>
+<p>首先需要了解的是，在垃圾回收器工作时，某些时段会停止用户的所有线程，防止某些引用在标记时候发生更改(stop the world)。GC开始工作后，第一件事就是确定GC Roots对象，如果GC通过扫描整个堆来确定CG Roots对象，对于大型的应用那让用户等待的的时间是无法想象的，最直观的感受是应用卡住了(卡死了)。</p>
+<p>在HotSpot(一种很常见的JVM)的实现中，是使用一组称为OopMap的数据结构来处理这个问题。在类加载完成的时候，HotSpot就把对象内什么偏移量上是什么类型的数据计算出来，在<a href="https://www.ibm.com/developerworks/cn/java/j-lo-just-in-time/" target="_blank" rel="noopener">JIT</a>编译过程中，也会在特定的位置记录下栈和寄存器中哪些位置是引用。</p>
+<p>记录了这些信息后就会将其插入指令中，这样当指令执行到这地方时，就可以轻松的获得GC Roots位置了。当然，HotSpot并不是在每个引用的地方都插入这样OopMap数据，那样会对内存产生很大消耗，它是选定一些特定的地方插入(例如方法调用、循环跳转、异常跳转等)，这个特定的地方就叫做安全点(Safepoint)，并在安全点插入一条终止用户线程的指令，这样当指令执行到终止线程指令时，就可以唤起GC开始垃圾回收了。</p>
+<h4 id="怎么回收"><a href="#怎么回收" class="headerlink" title="怎么回收"></a>怎么回收</h4><p>不同的垃圾回收器，采用不同的回收算法，但是基本都是由以下几种的组合使用。</p>
+<h5 id="标记-清除-Mark-Sweep-算法"><a href="#标记-清除-Mark-Sweep-算法" class="headerlink" title="标记-清除(Mark-Sweep)算法"></a>标记-清除(Mark-Sweep)算法</h5><p>首先标记出需要回收的对象，当标记完成后，统一回收所有被标记的对象。他有些不足，第一，标记和清除的效率不高；第二，清除之后会导致内存不连续，这样会对空间造成浪费，如果没有足够的空间容纳一个较大的对象，会触发垃圾回收。</p>
+<h5 id="复制-Copy-算法"><a href="#复制-Copy-算法" class="headerlink" title="复制(Copy)算法"></a>复制(Copy)算法</h5><p>由标记-清除导致内存不连续，就出现了复制的解决方案。它先将内存分为两块，始终保持就一块内存处于活动状态，当触发垃圾回收后导致内存不连续后，会将内存中对象全部复制到另一块内存中，此时内存中对象连续放置，解决了内存碎片问题。但是这种方法的代价始终只有一半的内存可以使用。</p>
+<h5 id="标记-整理-Mark-Compact-算法"><a href="#标记-整理-Mark-Compact-算法" class="headerlink" title="标记-整理(Mark-Compact)算法"></a>标记-整理(Mark-Compact)算法</h5><p>统一标记对象，标记完成后，并不是清理需要回收的对象，而是将存活的对象统一整理，让其连续存放在内存中。</p>
+<h5 id="分代收集-Generational-Collection-算法"><a href="#分代收集-Generational-Collection-算法" class="headerlink" title="分代收集(Generational Collection)算法"></a>分代收集(Generational Collection)算法</h5><p>根据对象存活周期的不同，将内存分为几块。一般将其分为新生代和老年代。在新生代，有大量对象死去，只有少量存活，这时采用复制算法；老生代的对象存活时间长，可以采用标记-清理或者标记-整理进行回收。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/17/BuildHexoBlog/" rel="next" title="通过GitHub Pages搭建基于Hexo的博客">
+                <i class="fa fa-chevron-left"></i> 通过GitHub Pages搭建基于Hexo的博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/27/java-annotation/" rel="prev" title="Java中的注解(Annotation)">
+                Java中的注解(Annotation) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+      
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Hasbeenss" />
+          <p class="site-author-name" itemprop="name">Hasbeenss</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#确定需要回收的对象"><span class="nav-number">1.</span> <span class="nav-text">确定需要回收的对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#引用"><span class="nav-number">1.1.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引用计数算法"><span class="nav-number">1.2.</span> <span class="nav-text">引用计数算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#可达性分析算法"><span class="nav-number">1.3.</span> <span class="nav-text">可达性分析算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么时候回收"><span class="nav-number">2.</span> <span class="nav-text">什么时候回收</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么回收"><span class="nav-number">3.</span> <span class="nav-text">怎么回收</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#标记-清除-Mark-Sweep-算法"><span class="nav-number">3.1.</span> <span class="nav-text">标记-清除(Mark-Sweep)算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#复制-Copy-算法"><span class="nav-number">3.2.</span> <span class="nav-text">复制(Copy)算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#标记-整理-Mark-Compact-算法"><span class="nav-number">3.3.</span> <span class="nav-text">标记-整理(Mark-Compact)算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分代收集-Generational-Collection-算法"><span class="nav-number">3.4.</span> <span class="nav-text">分代收集(Generational Collection)算法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hasbeenss</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+          
+      <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+      <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+      <script type="text/javascript">
+          const gitalk = new Gitalk({
+            clientID:  '78f05c1c7cdba8e7efef', 
+            clientSecret: '43d943117430424e37cb67cf7225dc0ae96ba65e',
+            repo: 'hasbeenss.github.io', 
+            owner: 'Hasbeenss', 
+            admin: 'Hasbeenss', 
+            distractionFreeMode: 'true',
+          })
+          gitalk.render('gitalk-container')
+      </script>
+    
+
+  
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
