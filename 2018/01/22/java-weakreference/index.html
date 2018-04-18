@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="之前一直做的是iOS，在iOS中，由于Objective-C是基于C和C++的，内存管理是很重要的一部分，它是基于引用计数技术的，在MRC阶段，内存管理很复杂，由程序员手动去处理和内存有关的问题，后来引入了ARC(自动引用计数)技术后，内存管理基本交给编译器去处理了。不管是MRC还是ARC，循环引用一直是关注的重点，为了解决这个问题引入了weak关键字来弱化一个引用，来打破其中的强应用，其中细节">
+<meta name="description" content="在Java中，内存管理基本交给垃圾回收器，程序员基本很少关注内存相关的问题。那么垃圾回收器是怎么工作的呢？Java中存在循环引用吗？如果存在的的话，又是怎么解决的呢？ 关于垃圾回收器工作过程，可以分为三步  确定需要回收的对象 什么时候回收 怎么回收  确定需要回收的对象引用什么是引用？Java中是这样说的：如果reference类型的数据中存储的数值代表的是另一块内存的起始地址，就称这块内存代表">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java中的垃圾回收">
 <meta property="og:url" content="http://yoursite.com/2018/01/22/java-weakreference/index.html">
 <meta property="og:site_name" content="Hasbeenss&#39;s blogs">
-<meta property="og:description" content="之前一直做的是iOS，在iOS中，由于Objective-C是基于C和C++的，内存管理是很重要的一部分，它是基于引用计数技术的，在MRC阶段，内存管理很复杂，由程序员手动去处理和内存有关的问题，后来引入了ARC(自动引用计数)技术后，内存管理基本交给编译器去处理了。不管是MRC还是ARC，循环引用一直是关注的重点，为了解决这个问题引入了weak关键字来弱化一个引用，来打破其中的强应用，其中细节">
+<meta property="og:description" content="在Java中，内存管理基本交给垃圾回收器，程序员基本很少关注内存相关的问题。那么垃圾回收器是怎么工作的呢？Java中存在循环引用吗？如果存在的的话，又是怎么解决的呢？ 关于垃圾回收器工作过程，可以分为三步  确定需要回收的对象 什么时候回收 怎么回收  确定需要回收的对象引用什么是引用？Java中是这样说的：如果reference类型的数据中存储的数值代表的是另一块内存的起始地址，就称这块内存代表">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-11T03:37:38.000Z">
+<meta property="og:updated_time" content="2018-04-18T08:41:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java中的垃圾回收">
-<meta name="twitter:description" content="之前一直做的是iOS，在iOS中，由于Objective-C是基于C和C++的，内存管理是很重要的一部分，它是基于引用计数技术的，在MRC阶段，内存管理很复杂，由程序员手动去处理和内存有关的问题，后来引入了ARC(自动引用计数)技术后，内存管理基本交给编译器去处理了。不管是MRC还是ARC，循环引用一直是关注的重点，为了解决这个问题引入了weak关键字来弱化一个引用，来打破其中的强应用，其中细节">
+<meta name="twitter:description" content="在Java中，内存管理基本交给垃圾回收器，程序员基本很少关注内存相关的问题。那么垃圾回收器是怎么工作的呢？Java中存在循环引用吗？如果存在的的话，又是怎么解决的呢？ 关于垃圾回收器工作过程，可以分为三步  确定需要回收的对象 什么时候回收 怎么回收  确定需要回收的对象引用什么是引用？Java中是这样说的：如果reference类型的数据中存储的数值代表的是另一块内存的起始地址，就称这块内存代表">
 
 
 
@@ -319,10 +319,7 @@
       
 
       
-        <blockquote>
-<p>之前一直做的是iOS，在iOS中，由于Objective-C是基于C和C++的，内存管理是很重要的一部分，它是基于引用计数技术的，在MRC阶段，内存管理很复杂，由程序员手动去处理和内存有关的问题，后来引入了ARC(自动引用计数)技术后，内存管理基本交给编译器去处理了。不管是MRC还是ARC，循环引用一直是关注的重点，为了解决这个问题引入了weak关键字来弱化一个引用，来打破其中的强应用，其中细节有很多东西，就不深入描述。<br>由此，我在学习Java过程中，不免将其与Objective-C进行对比学习，以寻求更多知识。</p>
-</blockquote>
-<p>在Java中，内存管理基本交给垃圾回收器，程序员基本很少关注内存相关的问题。那么垃圾回收器是怎么工作的呢？Java中存在循环引用吗？如果存在的的话，又是怎么解决的呢？</p>
+        <p>在Java中，内存管理基本交给垃圾回收器，程序员基本很少关注内存相关的问题。那么垃圾回收器是怎么工作的呢？Java中存在循环引用吗？如果存在的的话，又是怎么解决的呢？</p>
 <p>关于垃圾回收器工作过程，可以分为三步</p>
 <ul>
 <li>确定需要回收的对象</li>
